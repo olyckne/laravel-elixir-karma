@@ -1,3 +1,5 @@
+[![NPM](https://nodei.co/npm/laravel-elixir-karma.png)](https://nodei.co/npm/laravel-elixir-karma/)
+
 ## Laravel Elixir Karma Extension
 
 ## Install
