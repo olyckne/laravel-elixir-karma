@@ -3,6 +3,8 @@ var elixir = require('laravel-elixir');
 var karma = require('karma').server;
 var _ = require('underscore');
 
+var task = elixir.Task;
+
 elixir.extend('karma', function(args) {
     var defaults = {
         configFile: process.cwd()+'/karma.conf.js',
@@ -13,15 +15,12 @@ elixir.extend('karma', function(args) {
 
     var isStarted = false;
 
-    gulp.task('karma', function() {
+    new task('karma', function() {
         if( ! isStarted) {
             karma.start(options);
             isStarted = true;
         }
-    });
+    }).watch(options.jsDir, 'tdd');
 
-    this.registerWatcher('karma', options.jsDir, 'tdd');
-
-    return this.queueTask('karma');
 });
 
