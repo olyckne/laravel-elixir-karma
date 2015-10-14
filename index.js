@@ -11,7 +11,9 @@ elixir.extend('karma', function(args) {
 
     var defaults = {
         configFile: process.cwd()+'/karma.conf.js',
-        jsDir: ['resources/assets/js/**/*.js', 'resources/assets/coffee/**/*.coffee']
+        jsDir: ['resources/assets/js/**/*.js', 'resources/assets/coffee/**/*.coffee'],
+        autoWatch: true,
+        singleRun: false
     };
 
     var options = _.extend(defaults, args);
