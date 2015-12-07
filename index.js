@@ -6,8 +6,12 @@ var gutils = require('gulp-util');
 
 var task = elixir.Task;
 
+function isTddOrWatchTask() {
+    return gutils.env._.indexOf('watch') > -1 || gutils.env._.indexOf('tdd') > -1;
+}
+
 elixir.extend('karma', function(args) {
-    if (! _.contains(['watch', 'tdd'], gutils.env._)) return;
+    if (! isTddOrWatchTask()) return;
 
     var defaults = {
         configFile: process.cwd()+'/karma.conf.js',
@@ -21,10 +25,9 @@ elixir.extend('karma', function(args) {
     var isStarted = false;
 
     new task('karma', function() {
-        if( ! isStarted && (_.contains(['watch', 'tdd'], gutils.env._))) {
+        if( ! isStarted) {
             karma.start(options);
             isStarted = true;
         }
     }).watch(options.jsDir, 'tdd');
 });
-
