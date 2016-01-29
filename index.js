@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
-var karma = require('karma').server;
+var KarmaServer = require('karma').Server;
 var _ = require('underscore');
 var gutils = require('gulp-util');
 
@@ -14,7 +14,7 @@ elixir.extend('karma', function(args) {
     if (! isTddOrWatchTask()) return;
 
     var defaults = {
-        configFile: process.cwd()+'/karma.conf.js',
+        configFile: process.cwd() + '/karma.conf.js',
         jsDir: ['resources/assets/js/**/*.js', 'resources/assets/coffee/**/*.coffee'],
         autoWatch: true,
         singleRun: false
@@ -22,11 +22,14 @@ elixir.extend('karma', function(args) {
 
     var options = _.extend(defaults, args);
 
+    var server;
+
     var isStarted = false;
 
     new task('karma', function() {
         if( ! isStarted) {
-            karma.start(options);
+            server = new KarmaServer(options);
+            server.start();
             isStarted = true;
         }
     }).watch(options.jsDir, 'tdd');
