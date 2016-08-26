@@ -11,7 +11,7 @@ function isTddOrWatchTask() {
 }
 
 elixir.extend('karma', function(args) {
-    if (! isTddOrWatchTask()) return;
+    if (isTddOrWatchTask()) return;
 
     var defaults = {
         configFile: process.cwd() + '/karma.conf.js',
